@@ -63,11 +63,11 @@ const editNotes = (dir, title, body) => {
 
 	const filteredNotes = notes.filter((note) => note.title !== title);
 
-	notes.push(filteredNotes);
+	filteredNotes.push(note);
 
 	if (filteredNotes.length !== 0){
 
-		notes.push(note);
+		notes.push(filteredNotes);
 
 		fs.writeFileSync(`${dir}/notes.txt`, JSON.stringify(notes));
 
