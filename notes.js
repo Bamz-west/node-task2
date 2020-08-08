@@ -1,8 +1,8 @@
 const fs = require('fs');
 
-const fetchNotes = () => {
+const fetchNotes = (dir) => {
 	try {
-		return JSON.parse(fs.readFileSync(('notes.txt')));
+		return JSON.parse(fs.readFileSync((`${dir}/notes.txt`)));
 	} catch (err) {
 		return [];
 	}
@@ -10,7 +10,7 @@ const fetchNotes = () => {
 
 const addingNotes = (dir, title, body) => {
 	
-	var notes = fetchNotes();
+	var notes = fetchNotes(dir);
 
 	var note = {
 		title,
@@ -34,16 +34,16 @@ const addingNotes = (dir, title, body) => {
 
 const removeNotes = (dir, title) => {
 
-	var notes = fetchNotes();
+	var notes = fetchNotes(dir);
 
 	const filteredNotes = notes.filter((note) => note.title !== title);
 
 	fs.writeFileSync(`${dir}/notes.txt`, JSON.stringify(filteredNotes));
 }
 
-const readNotes = (title) => {
+const readNotes = (dir, title) => {
 
-	var notes = fetchNotes();
+	var notes = fetchNotes(dir);
 
 	const filteredNotes = notes.filter((note) => note.title === title);
 
@@ -54,7 +54,7 @@ const readNotes = (title) => {
 
 const editNotes = (dir, title, body) => {
 
-	var notes = fetchNotes();
+	var notes = fetchNotes(dir);
 
 	var note = {
 		title,
@@ -77,9 +77,9 @@ const editNotes = (dir, title, body) => {
 	}
 }
 
-const getAll = () => {
+const getAll = (dir) => {
 
-	var notes = fetchNotes();
+	var notes = fetchNotes(dir);
 
 	notes.forEach((note) => logNote(note));
 }

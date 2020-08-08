@@ -14,7 +14,7 @@ const server = http.createServer((req, res) => {
         	const dir = JSON.parse(data).dir;
         	fs.readdir(dir, (err, data) => {
             	if (err) throw err;
-            	notes.getAll();
+            	notes.getAll(dir);
             });
             res.end('done');
         });
@@ -41,7 +41,7 @@ const server = http.createServer((req, res) => {
             const title = JSON.parse(data).title;
             fs.readdir(dir, (err, data) => {
                 if (err) throw err;
-                notes.readNotes(title);
+                notes.readNotes(dir, title);
             });
             res.end('done');
         });
