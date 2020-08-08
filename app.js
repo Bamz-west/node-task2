@@ -31,6 +31,19 @@ const server = http.createServer((req, res) => {
             });
             res.end('done');
         });
+    } else if (req.url === '/dir' && req.method === 'DELETE') {
+        let data = [];
+        req.on("data", (chunk) => {
+            data.push(chunk);
+        });
+        console.log(data);
+        req.on("end", () => {
+            const dir = JSON.parse(data).dir;
+            fs.rmdir(dir, (err, data) => {
+                if (err) throw err;
+            });
+            res.end('done');
+        });
     } else if (req.url === '/note' && req.method === 'GET') {
         let data = [];
         req.on("data", (chunk) => {
